@@ -16,7 +16,6 @@ pipeline {
                 script {
                     def services = [
                         'src/frontend',
-                        'src/cartservice',
                         'src/productcatalogservice',
                         'src/currencyservice',
                         'src/paymentservice',
@@ -52,7 +51,6 @@ pipeline {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         def services = [
                             'src/frontend',
-                            'src/cartservice',
                             'src/productcatalogservice',
                             'src/currencyservice',
                             'src/paymentservice',
