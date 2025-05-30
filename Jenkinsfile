@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_REGISTRY = 'docker.io' // Registry chính thức của Docker Hub
+        DOCKER_REGISTRY = 'docker.io'
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
         IMAGE_TAG = "${env.BUILD_ID}-${new Date().format('yyyyMMddHHmmss')}"
     }
@@ -15,15 +15,7 @@ pipeline {
             steps {
                 script {
                     def services = [
-                        'src/frontend',
-                        'src/productcatalogservice',
-                        'src/currencyservice',
-                        'src/paymentservice',
-                        'src/shippingservice',
-                        'src/emailservice',
-                        'src/checkoutservice',
-                        'src/recommendationservice',
-                        'src/adservice'
+                        'src/frontend'
                     ]
                     for (service in services) {
                         dir(service) {
@@ -50,15 +42,7 @@ pipeline {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         def services = [
-                            'src/frontend',
-                            'src/productcatalogservice',
-                            'src/currencyservice',
-                            'src/paymentservice',
-                            'src/shippingservice',
-                            'src/emailservice',
-                            'src/checkoutservice',
-                            'src/recommendationservice',
-                            'src/adservice'
+                            'src/frontend'
                         ]
                         for (service in services) {
                             def imageName = "${DOCKER_REGISTRY}/tumachieu/${service.split('/').last()}:${IMAGE_TAG}"

@@ -16,35 +16,7 @@ services:
    # image: docker.io/tumachieu/cartservice:{{IMAGE_TAG}}
    # ports:
     #  - "7070:7070"
-  productcatalogservice:
-    image: docker.io/tumachieu/productcatalogservice:{{IMAGE_TAG}}
-    ports:
-      - "3550:3550"
-  currencyservice:
-    image: docker.io/tumachieu/currencyservice:{{IMAGE_TAG}}
-    ports:
-      - "7000:7000"
-  paymentservice:
-    image: docker.io/tumachieu/paymentservice:{{IMAGE_TAG}}
-    ports:
-      - "50051:50051"
-  shippingservice:
-    image: docker.io/tumachieu/shippingservice:{{IMAGE_TAG}}
-    ports:
-      - "50051:50051"
-  emailservice:
-    image: docker.io/tumachieu/emailservice:{{IMAGE_TAG}}
-    ports:
-      - "5000:5000"
-  checkoutservice:
-    image: docker.io/tumachieu/checkoutservice:{{IMAGE_TAG}}
-    ports:
-      - "5050:5050"
-  recommendationservice:
-    image: docker.io/tumachieu/recommendationservice:{{IMAGE_TAG}}
-    ports:
-      - "8080:8080"
-  adservice:
-    image: docker.io/tumachieu/adservice:{{IMAGE_TAG}}
-    ports:
-      - "9555:9555"
+ # productcatalogservice:
+ #   image: docker.io/tumachieu/productcatalogservice:{{IMAGE_TAG}}
+ #   ports:
+  #    - "3550:3550"
