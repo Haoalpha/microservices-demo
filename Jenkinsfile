@@ -29,9 +29,9 @@ pipeline {
             steps {
                 script {
                     bat """
-                        docker run -d --name test-frontend -p 8080:8080 ${DOCKER_REGISTRY}/tumachieu/frontend:${IMAGE_TAG}
+                        docker run -d --name test-frontend -p 8081:8080 ${DOCKER_REGISTRY}/tumachieu/frontend:${IMAGE_TAG}
                         timeout /t 10
-                        powershell -Command "Invoke-WebRequest -Uri http://localhost:8080 -UseBasicParsing" || exit 1
+                        powershell -Command "Invoke-WebRequest -Uri http://localhost:8081 -UseBasicParsing" || exit 1
                         docker rm -f test-frontend
                     """
                 }
