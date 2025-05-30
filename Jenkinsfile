@@ -43,7 +43,8 @@ pipeline {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         def services = [
-                            'src/frontend'
+                            'src/frontend',
+		            'src/productcatalogservice'
                         ]
                         for (service in services) {
                             def imageName = "${DOCKER_REGISTRY}/tumachieu/${service.split('/').last()}:${IMAGE_TAG}"
