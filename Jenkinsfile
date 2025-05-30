@@ -15,7 +15,8 @@ pipeline {
             steps {
                 script {
                     def services = [
-                        'src/frontend'
+                        'src/frontend',
+			'src/productcatalogservice'
                     ]
                     for (service in services) {
                         dir(service) {
