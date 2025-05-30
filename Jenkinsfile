@@ -16,7 +16,7 @@ pipeline {
                 script {
                     def services = [
                         'src/frontend',
-			'src/productcatalogservice'
+                        'src/productcatalogservice'
                     ]
                     for (service in services) {
                         dir(service) {
@@ -29,11 +29,19 @@ pipeline {
         stage('Test') {
             steps {
                 script {
+                    // Test frontend on port 8081
                     bat """
                         docker run -d --name test-frontend -p 8081:8080 ${DOCKER_REGISTRY}/tumachieu/frontend:${IMAGE_TAG}
-                        timeout /t 10
-                        powershell -Command "Invoke-WebRequest -Uri http://localhost:8081 -UseBasicParsing" || exit 1
+                        powershell -Command "Start-Sleep -Seconds 20"
+                        powershell -Command "try { Invoke-WebRequest -Uri http://localhost:8081 -UseBasicParsing -TimeoutSec 10 } catch { exit 1 }"
                         docker rm -f test-frontend
+                    """
+                    // Test productcatalogservice on port 3550
+                    bat """
+                        docker run -d --name test-productcatalog -p 3550:3550 ${DOCKER_REGISTRY}/tumachieu/productcatalogservice:${IMAGE_TAG}
+                        powershell -Command "Start-Sleep -Seconds 20"
+                        powershell -Command "try { Invoke-WebRequest -Uri http://localhost:3550 -UseBasicParsing -TimeoutSec 10 } catch { exit 1 }"
+                        docker rm -f test-productcatalog
                     """
                 }
             }
@@ -44,7 +52,7 @@ pipeline {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         def services = [
                             'src/frontend',
-		            'src/productcatalogservice'
+                            'src/productcatalogservice'
                         ]
                         for (service in services) {
                             def imageName = "${DOCKER_REGISTRY}/tumachieu/${service.split('/').last()}:${IMAGE_TAG}"
